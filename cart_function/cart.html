@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cart.css">
+    <title>Add To Cart</title>
+</head>
+<body>
+    <header>
+        <h1>Shoppert</h1>
+        <!-- <p> Shop <br> <mark>Online,</mark> <br> Not <br> <mark>In Line.</mark></p> -->
+    </header>
+    <main>
+        <section id="promotional-section">
+            <div class="products-container">
+                <figure>
+                    <img src="/imgs/decorations.jpg" alt="assorted vases on a table">
+                </figure>
+                <div>
+                   <p>New Arrivals</p>
+                   <a href="#" role="button">Take a Look</a>
+                </div>
+            </div>
+            <div class="products-container">
+                <figure>
+                    <img src="/imgs/woman-in-green-sweater.jpg" alt="woman in green sweater">
+                </figure>
+                <div>
+                   <p>Spring into Springtime Comfort</p>
+                   <a href="#" role="button">Take a Look</a>
+                </div>
+            </div>
+            
+        </section>
+        <section id="product-section">
+
+          <div id="audio">
+            <h3>Audio</h3>
+            <div class="products-container">
+              <h4>Bookshelf Speakers</h4>
+                <img src="/imgs/9925fb67-11bb-4974-b52f-d28e7fd2f6a0_removalai_preview.png" alt="">
+                <p class="price">$10.00</p>
+                  <div class="button-container">
+                    <button onclick="addToCart('Sony SS-CS5M2 Bookshelf Speakers (Pair) 2025', 10.00)">Add To Cart</button>
+                    <button onclick="removeFromCart('Sony SS-CS5M2 Bookshelf Speakers (Pair) 2025', 10.00)">Remove Item</button>
+                  </div>
+
+            </div>
+            <div class="products-container">
+              <h4>Tower Speakers </h4>
+                <img src="/imgs/9925fb67-11bb-4974-b52f-d28e7fd2f6a0_removalai_preview.png" alt="">
+                <p class="price">$20.00</p>
+                <div class="button-container">
+                    <button onclick="addToCart('Bose Companion 2 Series III Multimedia Speakers', 20.00)">Add To Cart</button>
+                    <button onclick="removeFromCart('Bose Companion 2 Series III Multimedia Speakers', 20.00)">Remove Item</button>
+                </div>
+            </div>
+          </div>
+           
+    </section>
+
+     <!-- Cart Section -->
+    <section id="cart-section">
+        <h2>Cart</h2>
+          <ul id="cart"></ul>
+        <button id="checkout">
+            Checkout
+        </button>
+    </section>
+    </main>
+    
+    <script>
+        // Empty obj to hold items
+        const cart = {};
+        // Adds cart items
+        function addToCart(productName, productPrice) {
+            // If product exists/defined
+            if (cart[productName]) {
+                // Add one into cart
+                cart[productName].quantity += 1;
+                // Add item price to total
+                cart[productName].totalPrice += productPrice;
+            // Otherwise add one into cart
+            } else {
+                cart[productName] = {
+                    quantity: 1,
+                    totalPrice: productPrice
+                };
+            }
+            // Update the changes in the UI
+            updateCartDisplay();
+        }
+
+        // Remove an item
+        function removeFromCart (productName, productPrice) {
+            // If there is less than or equal to 1 of an item
+            if (cart[productName].quantity >= 1) {
+                // Decrement the amount
+                cart[productName].quantity--;
+                // Subtract product price from total
+                cart[productName].totalPrice -= productPrice;
+            }
+            // Update changes in the UI
+            updateCartDisplay();
+        }
+
+        // Reflect increases/decreases in the UI
+        function updateCartDisplay() {
+            
+            const addButtons = document.getElementsByClassName('addButton');
+            for(i = 0; i < addButtons.length; i++) {
+                addButtons[i].innerHTML = "+";
+            }
+
+            // Get the elm w/ the id of "cart"
+            const cartList = document.getElementById('cart');
+            // Set the html content to nothing.
+            cartList.innerHTML = '';
+            for (let product in cart) {
+
+                let taxMath = Math.floor((8.25 / 100) + `${cart[product].totalPrice}`);
+                alert(taxMath);
+
+                const subtotalTitle = document.createElement('h4');
+                subtotalTitle.innerText = 'Subtotal';
+                subtotalTitle.style.fontFamily = "gravitas, sans-serif";
+                cartList.appendChild(subtotalTitle);
+
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<span id="product-name">${product}</span> 
+                                      <span><b>Quantity:</b> ${cart[product].quantity} </span>
+                                      <span><b>Total Price:</b> ${cart[product].totalPrice.toFixed(2)}</span>
+                                      <span><b>Sales Tax:</b> <span id="sales-tax">%8.25</span></span>
+                                     `;
+                listItem.style.display = "flex";
+                listItem.style.flexDirection = "column";
+                listItem.style.gap = "1.2em";
+                cartList.appendChild(listItem);
+
+                // Remove item altogether if quantity is 0
+                if (cart[product].quantity == 0) {
+                    cartList.removeChild(listItem);
+                    cartList.removeChild(subtotalTitle);
+            }
+            }
+            
+        }
+
+    </script>
+</body>
+</html>

@@ -13,7 +13,7 @@
     </header>
     <main>
         <section id="promotional-section">
-            <div class="products-container">
+            <div id="head-promo">
                 <figure>
                     <img src="/imgs/decorations.jpg" alt="assorted vases on a table">
                 </figure>
@@ -22,15 +22,35 @@
                    <a href="#" role="button">Take a Look</a>
                 </div>
             </div>
-            <div class="products-container">
-                <figure>
-                    <img src="/imgs/woman-in-green-sweater.jpg" alt="woman in green sweater">
-                </figure>
-                <div>
-                   <p>Spring into Springtime Comfort</p>
-                   <a href="#" role="button">Take a Look</a>
+            
+                <h2>Seasonal Specials</h2>
+            <div id="promo-offers">
+                 <div class="promo-offer">
+                    <figure>
+                        <img src="/imgs/woman-in-green-sweater.jpg" alt="woman in green sweater">
+                        <figcaption>Springtime Comfort</p>
+                    </figure>  
+                </div>
+                <div class="promo-offer">
+                    <figure>
+                        <img src="/imgs/cosmetic.jpg" alt="woman in green sweater">
+                        <figcaption>Cosmetic Essentials</p>
+                    </figure>  
+                </div>
+                <div class="promo-offer">
+                    <figure>
+                        <img src="/imgs/jewelry.jpg" alt="woman in green sweater">
+                        <figcaption>Gilded Bling</p>
+                    </figure>  
+                </div>
+                <div class="promo-offer">
+                    <figure>
+                        <img src="/imgs/wooden-furniture.jpg" alt="woman in green sweater">
+                        <figcaption>Bamboo Furniture</p>
+                    </figure>  
                 </div>
             </div>
+           
             
         </section>
         <section id="product-section">
@@ -39,7 +59,9 @@
             <h3>Audio</h3>
             <div class="products-container">
               <h4>Bookshelf Speakers</h4>
-                <img src="/imgs/9925fb67-11bb-4974-b52f-d28e7fd2f6a0_removalai_preview.png" alt="">
+              <figure>
+                    <img src="/imgs/behnam-norouzi-y0K8EMigxV4-unsplash.jpg" alt="">
+              </figure>
                 <p class="price">$10.00</p>
                   <div class="button-container">
                     <button onclick="addToCart('Sony SS-CS5M2 Bookshelf Speakers (Pair) 2025', 10.00)">Add To Cart</button>
@@ -49,7 +71,9 @@
             </div>
             <div class="products-container">
               <h4>Tower Speakers </h4>
-                <img src="/imgs/9925fb67-11bb-4974-b52f-d28e7fd2f6a0_removalai_preview.png" alt="">
+              <figure>
+                <img src="/imgs/kevin-woblick-LRamvPjq5Ho-unsplash.jpg" alt="">
+              </figure>
                 <p class="price">$20.00</p>
                 <div class="button-container">
                     <button onclick="addToCart('Bose Companion 2 Series III Multimedia Speakers', 20.00)">Add To Cart</button>
@@ -119,7 +143,8 @@
             cartList.innerHTML = '';
             for (let product in cart) {
 
-                let taxMath = Math.floor((8.25 / 100) + `${cart[product].totalPrice}`);
+                // let taxMath = Math.floor((8.25 / 100));
+                let taxMath = Math.floor(0.0825 * `${cart[product].totalPrice}`);
                 alert(taxMath);
 
                 const subtotalTitle = document.createElement('h4');
@@ -130,7 +155,7 @@
                 const listItem = document.createElement('li');
                 listItem.innerHTML = `<span id="product-name">${product}</span> 
                                       <span><b>Quantity:</b> ${cart[product].quantity} </span>
-                                      <span><b>Total Price:</b> ${cart[product].totalPrice.toFixed(2)}</span>
+                                      <span><b>Total Price:</b> ${cart[product].totalPrice+taxMath.toFixed(2)}</span>
                                       <span><b>Sales Tax:</b> <span id="sales-tax">%8.25</span></span>
                                      `;
                 listItem.style.display = "flex";

@@ -1,16 +1,16 @@
 @font-face {
     font-family: gravitas;
-    src: url('/Gravitas_One/GravitasOne-Regular.ttf');
+    src: url('Gravitas_One/GravitasOne-Regular.ttf');
 }
 
 @font-face {
     font-family: spartan;
-    src: url('/League_Spartan/static/LeagueSpartan-Regular.ttf');
+    src: url('League_Spartan/static/LeagueSpartan-Regular.ttf');
 }
 
 @font-face {
     font-family: mohave;
-    src: url('/Mohave/Mohave-VariableFont_wght.ttf');
+    src: url('Mohave/Mohave-VariableFont_wght.ttf');
 }
 
 * {
